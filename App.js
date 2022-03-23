@@ -1,10 +1,10 @@
-import { StyleSheet, View } from 'react-native';
-import WelcomeScreen from "./app/components/WelcomeScreen/WelcomeScreen";
+import { StyleSheet, View } from "react-native";
+import WelcomeScreen from "./app/Screens/WelcomeScreen";
 
 function App() {
   return (
     <View style={styles.container}>
-      <WelcomeScreen/>
+      <WelcomeScreen />
     </View>
   );
 }
@@ -12,9 +12,9 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

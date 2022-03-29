@@ -1,10 +1,19 @@
-import { StyleSheet, View } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  Platform,
+  StatusBar,
+  View,
+} from "react-native";
+import MessagesScreen from "./app/Screens/MesssagesScreen";
+import colors from "./app/colors";
 import WelcomeScreen from "./app/Screens/WelcomeScreen";
+import Screen from "./app/components/Screen";
 
 function App() {
   return (
-    <View style={styles.container}>
-      <WelcomeScreen />
+    <View>
+      <MessagesScreen />
     </View>
   );
 }

@@ -29,6 +29,7 @@ const initialMessages = [
 const MessagesScreen = () => {
 
   const [messages,setMessages] = useState(initialMessages)
+  const [refreshing,setRefreshing] = useState(false);
 
   const handleDelete = (id) => {
    const newMessages = messages.filter(el => el.id !== id);
@@ -53,6 +54,13 @@ const MessagesScreen = () => {
         )}
         keyExtractor={(message) => message.id.toString()}
         ItemSeparatorComponent={UserItemSeparator}
+        refreshing={refreshing}
+        onRefresh={() => setMessages([ {
+          id: 3,
+          title: "D3",
+          description: "1234Hello",
+          image: require("../assets/jacket.jpg"),
+        },])}
       />
     </Screen>
   );

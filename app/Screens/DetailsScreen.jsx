@@ -3,7 +3,7 @@ import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import AppText from "../components/AppText/AppText";
 import colors from "../colors";
-import UserItem from "../components/UserBlock";
+import ListItem from "../components/ListItem";
 
 const DetailsScreen = (image) => {
   return (
@@ -18,7 +18,7 @@ const DetailsScreen = (image) => {
           <AppText style={styles.title}>Red jacket for sale</AppText>
           <AppText style={styles.price}>100$</AppText>
         </View>
-        <UserItem
+        <ListItem
           title="Josh"
           subTitle="5 listings"
           image={require("../../app/assets/jacket.jpg")}

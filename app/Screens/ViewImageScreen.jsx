@@ -1,48 +1,53 @@
-import React from 'react';
+import React from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { StyleSheet, View,Image} from 'react-native';
+import { StyleSheet, View, Image } from "react-native";
 import colors from "../colors";
+import Screen from "../components/Screen";
 
 const ViewImageScreen = () => {
-    return (
-        <View style={styles.container}>
-            <View style={styles.closeIcon}/>
-            <View style={styles.deleteIcon}/>
-            <Image style={styles.cover} source={require("../assets/chair.jpg")} resizeMode="contain"/>
-        </View>
-    );
+  return (
+    <Screen style={styles.container}>
+      <MaterialCommunityIcons
+        name="close"
+        style={styles.closeIcon}
+        color="white"
+        size={35}
+      />
+      <MaterialCommunityIcons
+        name="trash-can-outline"
+        style={styles.deleteIcon}
+        color="white"
+        size={35}
+      />
+      <Image
+        style={styles.cover}
+        source={require("../assets/chair.jpg")}
+        resizeMode="contain"
+      />
+    </Screen>
+  );
 };
 
 const styles = StyleSheet.create({
-   container: {
-       flex: 1,
-       width:"100%",
-       backgroundColor:colors.black,
-       flexDirection:"column",
-   },
-    cover: {
-       height:"100%",
-        width:"100%",
-        alignSelf:"center",
-    },
-    closeIcon: {
-       backgroundColor:colors.primary,
-        width:50,
-        height:50,
-        position:"absolute",
-        top:50,
-        left:30,
-    },
-    deleteIcon: {
-        backgroundColor:colors.secondary,
-        width:50,
-        height:50,
-        position:"absolute",
-        top:50,
-        right:30,
-
-
-    }
-})
+  container: {
+    backgroundColor: colors.black,
+  },
+  cover: {
+    height: "100%",
+    width: "100%",
+    alignSelf: "center",
+  },
+  closeIcon: {
+    position: "absolute",
+    top: 50,
+    left: 30,
+  },
+  deleteIcon: {
+    position: "absolute",
+    top: 50,
+    right: 30,
+  },
+});
 
 export default ViewImageScreen;

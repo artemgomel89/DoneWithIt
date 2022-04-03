@@ -55,7 +55,7 @@ const RegisterScreen = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    padding: 20,
+    padding: 10,
   },
   image: {
     width: 80,

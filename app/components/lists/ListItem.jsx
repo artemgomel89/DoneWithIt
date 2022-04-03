@@ -5,6 +5,7 @@ import AppText from "../AppText/AppText";
 import colors from "../../config/colors";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const ListItem = ({
   title,
@@ -22,11 +23,20 @@ const ListItem = ({
             {IconComponent}
             {image && <Image source={image} style={styles.image} />}
             <View style={styles.text}>
-              <AppText style={styles.title}>{title}</AppText>
+              <AppText style={styles.title} numberOfLines={1}>
+                {title}
+              </AppText>
               {subTitle && (
-                <AppText style={styles.subTitle}>{subTitle}</AppText>
+                <AppText style={styles.subTitle} numberOfLines={2}>
+                  {subTitle}
+                </AppText>
               )}
             </View>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={20}
+              color={colors.gray}
+            />
           </View>
         </TouchableHighlight>
       </Swipeable>
@@ -46,6 +56,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   text: {
+    flex: 1,
     marginLeft: 10,
     justifyContent: "center",
   },

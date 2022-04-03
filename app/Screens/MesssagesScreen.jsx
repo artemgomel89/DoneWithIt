@@ -20,8 +20,10 @@ const initialMessages = [
   },
   {
     id: 3,
-    title: "D3",
-    description: "1234Hello",
+    title:
+      "loremvlkfsmvbkfdbmkdgmbdkgmblglbbmbmbmbmbmbmbmkm11112313231232312312312312312312312",
+    description:
+      "loremvlkfsmvbkfdbmkdgmbdkgmblglbbmbmbmbmbmbmbmkm,m,m,m,m,m;m;fdm;dm;ldm;vbldmb;dlgb;ldmg;bm;dlgmb;ldgmb;dgmb;dlmgb;dmgb;mdg;bmd;ldm;bdm;",
     image: require("../assets/jacket.jpg"),
   },
 ];
@@ -57,7 +59,8 @@ const MessagesScreen = () => {
             {
               id: 3,
               title: "D3",
-              description: "1234Hello",
+              description:
+                "loremvksnl dfn d sjng jsdngjvn dk;j dn jdfnnvfdvn,fdmv,fvn,fmv,fnvfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkgfkgkgfkkkkkkkkkk",
               image: require("../assets/jacket.jpg"),
             },
           ])

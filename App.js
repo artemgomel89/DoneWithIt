@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
-import AppTextInput from "./app/components/AppTextInput";
-import Screen from "./app/components/Screen";
-import AppPicker from "./app/components/AppPicker";
-import { useState } from "react";
+
+import ListingEditScreen from "./app/Screens/ListingEditScreen";
 import LoginScreen from "./app/Screens/LoginScreen";
+import RegisterScreen from "./app/Screens/RegisterScreen";
+import AccountScreen from "./app/Screens/AccountScreen";
 
 const categories = [
   { label: "Furniture", id: 1 },
@@ -12,8 +12,7 @@ const categories = [
 ];
 
 function App() {
-  const [category, setCategory] = useState(categories[0]);
-  return <LoginScreen />;
+  return <AccountScreen />;
 }
 
 const styles = StyleSheet.create({

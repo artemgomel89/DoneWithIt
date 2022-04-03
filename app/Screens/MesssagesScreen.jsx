@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { FlatList } from "react-native";
-import ListItem from "../components/ListItem";
+import ListItem from "../components/lists/ListItem";
 import Screen from "../components/Screen";
-import UserItemSeparator from "../components/UserItemSeparator";
-import ListItemDeleteAction from "../components/ListItemDeleteAction";
+import ListItemSeparator from "../components/lists/ListItemSeparator";
+import ListItemDeleteAction from "../components/lists/ListItemDeleteAction";
 
 const initialMessages = [
   {
@@ -27,14 +27,13 @@ const initialMessages = [
 ];
 
 const MessagesScreen = () => {
-
-  const [messages,setMessages] = useState(initialMessages)
-  const [refreshing,setRefreshing] = useState(false);
+  const [messages, setMessages] = useState(initialMessages);
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleDelete = (id) => {
-   const newMessages = messages.filter(el => el.id !== id);
-   setMessages(newMessages);
-  }
+    const newMessages = messages.filter((el) => el.id !== id);
+    setMessages(newMessages);
+  };
   return (
     <Screen>
       <FlatList
@@ -46,21 +45,23 @@ const MessagesScreen = () => {
             image={item.image}
             onPress={() => console.log("Message selected!")}
             renderRightActions={() => (
-              <ListItemDeleteAction
-                onPress={() =>  handleDelete(item.id)}
-              />
+              <ListItemDeleteAction onPress={() => handleDelete(item.id)} />
             )}
           />
         )}
         keyExtractor={(message) => message.id.toString()}
-        ItemSeparatorComponent={UserItemSeparator}
+        ItemSeparatorComponent={ListItemSeparator}
         refreshing={refreshing}
-        onRefresh={() => setMessages([ {
-          id: 3,
-          title: "D3",
-          description: "1234Hello",
-          image: require("../assets/jacket.jpg"),
-        },])}
+        onRefresh={() =>
+          setMessages([
+            {
+              id: 3,
+              title: "D3",
+              description: "1234Hello",
+              image: require("../assets/jacket.jpg"),
+            },
+          ])
+        }
       />
     </Screen>
   );

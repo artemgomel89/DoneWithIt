@@ -1,9 +1,9 @@
 import React from "react";
 
 import { StyleSheet, View } from "react-native";
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
-const UserItemSeparator = () => {
+const ListItemSeparator = () => {
   return <View style={styles.separator} />;
 };
 const styles = StyleSheet.create({
@@ -14,4 +14,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserItemSeparator;
+export default ListItemSeparator;

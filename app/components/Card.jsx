@@ -1,7 +1,7 @@
 import React from "react";
 
 import { View, StyleSheet, Image } from "react-native";
-import colors from "../colors";
+import colors from "../config/colors";
 import AppText from "./AppText/AppText";
 
 const Card = ({ title, price, image }) => {
@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 200,
+    borderRadius: 15,
   },
   detailsContainer: {
     padding: 20,

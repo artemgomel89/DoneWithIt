@@ -1,10 +1,8 @@
 import React from "react";
-
 import { Image, StyleSheet, View } from "react-native";
 import AppText from "../components/AppText/AppText";
-import colors from "../colors";
+import colors from "../config/colors";
 import ListItem from "../components/ListItem";
-
 const DetailsScreen = (image) => {
   return (
     <View>

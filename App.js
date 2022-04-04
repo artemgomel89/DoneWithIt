@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
-import MessagesScreen from "./app/Screens/MesssagesScreen";
-import RegisterScreen from "./app/Screens/RegisterScreen";
+import ListingEditScreen from "./app/Screens/ListingEditScreen";
 
 const categories = [
   { label: "Furniture", id: 1 },
@@ -9,7 +8,7 @@ const categories = [
 ];
 
 function App() {
-  return <RegisterScreen />;
+  return <ListingEditScreen />;
 }
 
 const styles = StyleSheet.create({

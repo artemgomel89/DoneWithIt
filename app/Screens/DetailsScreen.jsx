@@ -3,9 +3,10 @@ import { Image, StyleSheet, View } from "react-native";
 import AppText from "../components/AppText/AppText";
 import colors from "../config/colors";
 import ListItem from "../components/lists/ListItem";
+import Screen from "../components/Screen";
 const DetailsScreen = () => {
   return (
-    <View>
+    <Screen>
       <Image
         source={require("../../app/assets/jacket.jpg")}
         style={styles.image}
@@ -22,7 +23,7 @@ const DetailsScreen = () => {
           image={require("../../app/assets/jacket.jpg")}
         />
       </View>
-    </View>
+    </Screen>
   );
 };
 

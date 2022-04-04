@@ -15,17 +15,20 @@ import Screen from "./Screen";
 import PickerItem from "./PickerItem";
 
 const AppPicker = ({
+  PickerItemComponent = PickerItem,
   iconName,
   placeholder,
   items,
   selectedItem,
   onSelectItem,
+  width,
+  numOfColumns,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-        <View style={styles.container}>
+        <View style={[styles.container, { width }]}>
           {iconName && (
             <MaterialCommunityIcons
               name={iconName}
@@ -50,9 +53,13 @@ const AppPicker = ({
         <Screen>
           <Button title="Close" onPress={() => setModalVisible(false)} />
           <FlatList
+            numColumns={numOfColumns}
             data={items}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <PickerItem
+              <PickerItemComponent
+                numOfColumns={numOfColumns}
+                item={item}
                 label={item.label}
                 onPress={() => {
                   setModalVisible(false);
@@ -60,7 +67,6 @@ const AppPicker = ({
                 }}
               />
             )}
-            keyExtractor={(item) => item.id.toString()}
           />
         </Screen>
       </Modal>
@@ -70,7 +76,6 @@ const AppPicker = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
     padding: 15,
     borderRadius: 25,
     backgroundColor: defaultStyles.colors.light,

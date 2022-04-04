@@ -26,7 +26,6 @@ const RegisterScreen = () => {
           placeholder="Name"
           autoCapitalize="none"
           autoCorrect={false}
-          textContentType="text"
         />
         <AppFormField
           name="email"

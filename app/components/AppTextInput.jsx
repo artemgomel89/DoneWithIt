@@ -4,9 +4,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
 import defaultStyles from "../config/styles";
 
-const AppTextInput = ({ iconName, ...otherProps }) => {
+const AppTextInput = ({ iconName, width, ...otherProps }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width }]}>
       {iconName && (
         <MaterialCommunityIcons
           name={iconName}
@@ -25,16 +25,12 @@ const AppTextInput = ({ iconName, ...otherProps }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
     padding: 15,
     borderRadius: 25,
     backgroundColor: defaultStyles.colors.light,
     alignItems: "center",
     flexDirection: "row",
     marginVertical: 10,
-  },
-  textInput: {
-    width: "100%",
   },
   icon: {
     marginRight: 10,

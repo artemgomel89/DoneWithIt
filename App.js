@@ -1,28 +1,40 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, Image, View, FlatList } from "react-native";
-import colors from "./app/config/colors";
-import ImageInput from "./app/components/ImageInput";
-import Screen from "./app/components/Screen";
-import ImageInputList from "./app/components/lists/ImageInputList";
+import * as React from "react";
+import { View, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ListingEditScreen from "./app/Screens/ListingEditScreen";
+
+const Tweets = () => {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Tweets</Text>
+    </View>
+  );
+};
+
+const TweetDetails = () => {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Tweet Details</Text>
+    </View>
+  );
+};
+
+const Stack = createNativeStackNavigator();
+const StackNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Tweets" component={Tweets} />
+      <Stack.Screen name="TweetDetails" component={TweetDetails} />
+    </Stack.Navigator>
+  );
+};
 
 function App() {
-  const [imageUris, setImageUris] = useState([]);
-
-  const handleAdd = (uri) => {
-    setImageUris([...imageUris, uri]);
-  };
-  const handleRemove = (uri) => {
-    setImageUris(imageUris.filter((item) => item !== uri));
-  };
-
   return (
-    <Screen>
-      <ImageInputList
-        imageUris={imageUris}
-        onAddImage={handleAdd}
-        onRemoveImage={handleRemove}
-      />
-    </Screen>
+    <NavigationContainer>
+      <ListingEditScreen />
+    </NavigationContainer>
   );
 }
 

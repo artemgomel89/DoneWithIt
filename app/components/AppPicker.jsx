@@ -22,7 +22,7 @@ const AppPicker = ({
   selectedItem,
   onSelectItem,
   width,
-  numOfColumns,
+  numOfColumns = 1,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
@@ -64,6 +64,7 @@ const AppPicker = ({
                 onPress={() => {
                   setModalVisible(false);
                   onSelectItem(item);
+                  console.log("clicKED!!!!!");
                 }}
               />
             )}

@@ -3,20 +3,23 @@ import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import colors from "../config/colors";
 import AppText from "./AppText/AppText";
+import { TouchableWithoutFeedback } from "react-native";
 
-const Card = ({ title, price, image }) => {
+const Card = ({ title, price, imageUrl, onPress }) => {
   return (
-    <View style={styles.card}>
-      <Image source={image} style={styles.image} resizeMode="contain" />
-      <View style={styles.detailsContainer}>
-        <AppText style={styles.title} numberOfLines={1}>
-          {title}
-        </AppText>
-        <AppText style={styles.price} numberOfLines={3}>
-          {price}
-        </AppText>
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={styles.card}>
+        <Image source={{ uri: imageUrl }} style={styles.image} />
+        <View style={styles.detailsContainer}>
+          <AppText style={styles.title} numberOfLines={1}>
+            {title}
+          </AppText>
+          <AppText style={styles.price} numberOfLines={3}>
+            {price}
+          </AppText>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -30,7 +33,6 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 200,
-    borderRadius: 15,
   },
   detailsContainer: {
     padding: 20,

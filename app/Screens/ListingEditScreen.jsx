@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { StyleSheet } from "react-native";
+import colors from "../config/colors";
+
+import listingsApi from "../api/listings";
 
 import Screen from "../components/Screen";
 import {
@@ -81,6 +84,12 @@ const validationSchema = Yup.object().shape({
 const ListingEditScreen = () => {
   const location = useLocation();
 
+  const handleSubmit = async (listing) => {
+    const result = await listingsApi.addListing({ ...listing, location });
+    if (!result.ok) return alert("Could not save the listing.");
+    alert("Success");
+  };
+
   return (
     <Screen style={styles.container}>
       <AppForm
@@ -91,7 +100,7 @@ const ListingEditScreen = () => {
           category: null,
           images: [],
         }}
-        onSubmit={() => console.log(location)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <AppFormImagePicker name="images" />
@@ -99,7 +108,7 @@ const ListingEditScreen = () => {
         <AppFormField
           name="price"
           width={120}
-          placeholder="Price"
+          placeholder="Price" /**/
           keyboardType="numeric"
           maxLength={8}
         />
@@ -126,7 +135,9 @@ const ListingEditScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 20,
+    backgroundColor: colors.white,
   },
 });
 

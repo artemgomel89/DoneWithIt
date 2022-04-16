@@ -1,40 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { FlatList, StyleSheet } from "react-native";
+
+import colors from "../config/colors";
+import routes from "../navigation/routes";
 
 import Screen from "../components/Screen";
-import { FlatList, StyleSheet } from "react-native";
 import Card from "../components/Card";
-import colors from "../config/colors";
+import AppText from "../components/AppText/AppText";
+import AppButton from "../components/AppButton";
+import ActivityIndicator from "../components/ActivityIndicator";
 
-const listingData = [
-  {
-    id: 1,
-    title: "red jacket",
-    price: 25,
-    image: require("../assets/jacket.jpg"),
-  },
-  {
-    id: 2,
-    title: "green jacket",
-    price: 150,
-    image: require("../assets/jacket-green.jpg"),
-  },
-  {
-    id: 3,
-    title: "black pants",
-    price: 220,
-    image: require("../assets/jacket.jpg"),
-  },
-];
-const ListingsScreen = () => {
+import listingsApi from "../api/listings";
+import useApi from "../hooks/useApi";
+
+const ListingsScreen = ({ navigation }) => {
+  const getListingsApi = useApi(listingsApi.getListings);
+
+  useEffect(() => {
+    getListingsApi.request();
+  }, []);
+
   return (
     <Screen style={styles.screen}>
+      {getListingsApi.error && (
+        <>
+          <AppText>Couldn't retrieve the listings</AppText>
+          <AppButton title="Retry" onPress={getListingsApi.request} />
+        </>
+      )}
+      <ActivityIndicator visible={getListingsApi.loading} />
       <FlatList
-        data={listingData}
+        data={getListingsApi.data}
         renderItem={({ item }) => (
           <Card
             title={item.title}
             price={`${item.price} $`}
-            image={item.image}
+            imageUrl={item.images[0].url}
+            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
         )}
         keyExtractor={(listing) => listing.id.toString()}
@@ -46,7 +48,8 @@ const ListingsScreen = () => {
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.light,
-    padding: 20,
+    flex: 1,
+    padding: 10,
   },
 });
 

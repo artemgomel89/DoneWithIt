@@ -64,7 +64,6 @@ const AppPicker = ({
                 onPress={() => {
                   setModalVisible(false);
                   onSelectItem(item);
-                  console.log("clicKED!!!!!");
                 }}
               />
             )}

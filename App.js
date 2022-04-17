@@ -4,6 +4,7 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 import navigationTheme from "./app/navigation/NavigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
+import * as NavigationBar from "expo-navigation-bar";
 
 /*
 const Link = () => {
@@ -14,6 +15,8 @@ const Link = () => {
 };*/
 
 function App() {
+  NavigationBar.setBackgroundColorAsync("white");
+  NavigationBar.setButtonStyleAsync("dark");
   return (
     <NavigationContainer theme={navigationTheme}>
       <AppNavigator />

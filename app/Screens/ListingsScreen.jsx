@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StatusBar, StyleSheet } from "react-native";
 
 import colors from "../config/colors";
 import routes from "../navigation/routes";
@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.light,
     flex: 1,
-    padding: 10,
+    paddingTop: 5,
+    paddingHorizontal: 5,
   },
 });
 

@@ -23,13 +23,13 @@ const AppNavigator = () => (
           display: "flex",
         },
       ],
+      headerShown: false,
     }}
   >
     <Tab.Screen
       name="Listings"
       component={FeedNavigator}
       options={{
-        headerShown: false,
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons name="home" size={size} color={color} />
         ),

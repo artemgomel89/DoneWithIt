@@ -1,45 +1,13 @@
 import React from "react";
 
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import colors from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ListingsScreen from "../Screens/ListingsScreen";
 import ListingEditScreen from "../Screens/ListingEditScreen";
-import AccountScreen from "../Screens/AccountScreen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const Stack = createNativeStackNavigator();
-
-const AccountNavigator = () => {
-  return (
-    <Stack.Navigator
-      options={{ headerShown: "false" }}
-      screenOptions={{ headerShown: false }}
-    >
-      <Stack.Screen
-        name="AccountScreen"
-        component={AccountScreen}
-        options={{ headerShown: "false" }}
-      />
-    </Stack.Navigator>
-  );
-};
-
-const ListingsNavigator = () => {
-  return (
-    <Stack.Navigator
-      options={{ headerShown: "false", backgroundColor: colors.white }}
-      screenOptions={{ headerShown: false }}
-    >
-      <Stack.Screen
-        name="Listings"
-        component={AccountScreen}
-        options={{ headerShown: "false" }}
-      />
-    </Stack.Navigator>
-  );
-};
+import AccountNavigator from "../navigation/AccountNavigator";
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();

@@ -5,7 +5,7 @@ const endpoint = "/listings";
 
 const getListings = () => apiClient.get(endpoint);
 
-const addListing = (listing) => {
+const addListing = (listing, onUploadProgress) => {
   const data = new FormData();
   data.append("title", listing.title);
   data.append("price", listing.price);
@@ -23,7 +23,10 @@ const addListing = (listing) => {
   if (listing.location)
     data.append("location", JSON.stringify(listing.location));
 
-  return client.post("/listings", data);
+  return client.post(endpoint, data, {
+    onUploadProgress: (progress) =>
+      onUploadProgress(progress.loaded / progress.total),
+  });
 
   // content-type
   // application/json by default

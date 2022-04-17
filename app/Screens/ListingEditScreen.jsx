@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
-import { StyleSheet } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
 import colors from "../config/colors";
 
 import listingsApi from "../api/listings";
@@ -15,6 +15,7 @@ import {
 import CategoryPickerItem from "../components/CategoryPickerItem";
 import AppFormImagePicker from "../components/forms/AppFormImagePicker";
 import useLocation from "../hooks/useLocation";
+import UploadScreen from "./UploadScreen";
 
 const categories = [
   {
@@ -83,15 +84,31 @@ const validationSchema = Yup.object().shape({
 
 const ListingEditScreen = () => {
   const location = useLocation();
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const handleSubmit = async (listing) => {
-    const result = await listingsApi.addListing({ ...listing, location });
-    if (!result.ok) return alert("Could not save the listing.");
-    alert("Success");
+    setProgress(0);
+    setUploadVisible(true);
+    const result = await listingsApi.addListing(
+      { ...listing, location },
+      (progress) => setProgress(progress)
+    );
+    // setUploadVisible(false);
+
+    if (!result.ok) {
+      setUploadVisible(false);
+      return alert("Could not save the listing.");
+    }
   };
 
   return (
     <Screen style={styles.container}>
+      <UploadScreen
+        progress={progress}
+        visible={uploadVisible}
+        onDone={() => setUploadVisible(false)}
+      />
       <AppForm
         initialValues={{
           title: "",
@@ -137,6 +154,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    paddingTop: 5,
     backgroundColor: colors.white,
   },
 });

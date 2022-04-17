@@ -8,11 +8,11 @@ import MessagesScreen from "../Screens/MesssagesScreen";
 const Stack = createNativeStackNavigator();
 
 const AccountNavigator = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
+  <Stack.Navigator>
     <Stack.Screen
-      name="ListingsScreen"
+      name="AccountScreen"
       component={AccountScreen}
-      options={{ headerShown: false, title: null }}
+      options={{ headerShown: false }}
     />
     <Stack.Screen name="Messages" component={MessagesScreen} />
   </Stack.Navigator>

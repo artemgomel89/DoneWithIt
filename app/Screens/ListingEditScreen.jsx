@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
-import { StatusBar, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import colors from "../config/colors";
 
 import listingsApi from "../api/listings";

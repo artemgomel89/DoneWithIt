@@ -13,7 +13,7 @@ const useApi = (apiFunc) => {
     if (!resp.ok) return setError(true);
 
     setError(false);
-    setData(resp.data);
+    setData(resp.data.reverse());
   };
   return { data, error, loading, request };
 };

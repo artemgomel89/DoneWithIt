@@ -15,6 +15,7 @@ import useApi from "../hooks/useApi";
 
 const ListingsScreen = ({ navigation }) => {
   const getListingsApi = useApi(listingsApi.getListings);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     getListingsApi.request();
@@ -28,7 +29,7 @@ const ListingsScreen = ({ navigation }) => {
           <AppButton title="Retry" onPress={getListingsApi.request} />
         </>
       )}
-      <ActivityIndicator visible={getListingsApi.loading} />
+      {<ActivityIndicator visible={getListingsApi.loading} /> && !refreshing}
       <FlatList
         data={getListingsApi.data}
         renderItem={({ item }) => (
@@ -40,6 +41,12 @@ const ListingsScreen = ({ navigation }) => {
           />
         )}
         keyExtractor={(listing) => listing.id.toString()}
+        refreshing={refreshing}
+        onRefresh={() => {
+          setRefreshing(true);
+          getListingsApi.request();
+          setRefreshing(false);
+        }}
       />
     </Screen>
   );

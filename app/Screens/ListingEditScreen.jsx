@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { StyleSheet } from "react-native";
 import colors from "../config/colors";
@@ -84,31 +84,30 @@ const validationSchema = Yup.object().shape({
 
 const ListingEditScreen = () => {
   const location = useLocation();
-  const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleSubmit = async (listing, { resetForm }) => {
     setProgress(0);
-    setUploadVisible(true);
+    setModalVisible(true);
+
     const result = await listingsApi.addListing(
       { ...listing, location },
       (progress) => setProgress(progress)
     );
 
     if (!result.ok) {
-      setUploadVisible(false);
       return alert("Could not save the listing.");
-    } else {
-      resetForm();
     }
+    resetForm();
   };
 
   return (
     <Screen style={styles.container}>
       <UploadScreen
         progress={progress}
-        visible={uploadVisible}
-        onDone={() => setUploadVisible(false)}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
       />
       <AppForm
         initialValues={{

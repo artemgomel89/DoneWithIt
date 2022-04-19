@@ -1,18 +1,18 @@
 import React from "react";
 import { View, StyleSheet, Modal } from "react-native";
-
 import * as Progress from "react-native-progress";
-import LottieView from "lottie-react-native";
-import colors from "../config/colors";
 
-const UploadScreen = ({ progress = 0, visible = false, onDone }) => {
+import colors from "../config/colors";
+import LottieView from "lottie-react-native";
+
+const UploadScreen = ({ progress, modalVisible, setModalVisible }) => {
   return (
-    <Modal visible={visible}>
+    <Modal visible={modalVisible}>
       <View style={styles.container}>
-        {progress < 1 ? (
+        {progress < 1 && progress > 0 ? (
           <Progress.Bar
-            color={colors.primary}
             width={200}
+            color={colors.primary}
             progress={progress}
           />
         ) : (
@@ -21,7 +21,7 @@ const UploadScreen = ({ progress = 0, visible = false, onDone }) => {
             source={require("../assets/animation/102943-done.json")}
             loop={false}
             style={styles.animation}
-            onAnimationFinish={onDone}
+            onAnimationFinish={() => setModalVisible(false)}
           />
         )}
       </View>

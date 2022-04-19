@@ -41,7 +41,7 @@ const AppNavigator = () => (
       options={({ navigation }) => ({
         tabBarIcon: () => (
           <NewListingButton
-            size={80}
+            size={70}
             onPress={() => navigation.navigate(routes.LISTING_EDIT)}
           />
         ),

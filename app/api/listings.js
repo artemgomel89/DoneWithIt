@@ -1,5 +1,4 @@
 import apiClient from "./client";
-import client from "./client";
 
 const endpoint = "/listings";
 
@@ -20,10 +19,9 @@ const addListing = (listing, onUploadProgress) => {
     })
   );
 
-  if (listing.location)
-    data.append("location", JSON.stringify(listing.location));
+  if (listing.location) data.append("location", listing.location);
 
-  return client.post(endpoint, data, {
+  return apiClient.post(endpoint, data, {
     onUploadProgress: (progress) =>
       onUploadProgress(progress.loaded / progress.total),
   });

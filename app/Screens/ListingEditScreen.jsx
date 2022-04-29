@@ -11,6 +11,7 @@ import {
   AppFormField,
   SubmitButton,
   AppFormPicker,
+  ErrorMessage,
 } from "../components/forms";
 import CategoryPickerItem from "../components/CategoryPickerItem";
 import AppFormImagePicker from "../components/forms/AppFormImagePicker";
@@ -79,7 +80,9 @@ const validationSchema = Yup.object().shape({
   price: Yup.number().required().max(10000).label("Price"),
   description: Yup.string().label("Description"),
   category: Yup.object().required().nullable().label("Category"),
-  image: Yup.array().min(1, "Please select at least 1 image"),
+  images: Yup.array()
+    .min(1, "Please select at least 1 image")
+    .max(3, "You can add only 3 images"),
 });
 
 const ListingEditScreen = () => {
@@ -97,6 +100,7 @@ const ListingEditScreen = () => {
     );
 
     if (!result.ok) {
+      console.log(result);
       return alert("Could not save the listing.");
     }
     resetForm();
@@ -135,7 +139,7 @@ const ListingEditScreen = () => {
           name="category"
           placeholder="Category"
           items={categories}
-          width={"50%"}
+          width={"51%"}
         />
         <AppFormField
           name="description"

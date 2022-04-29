@@ -19,7 +19,9 @@ const addListing = (listing, onUploadProgress) => {
     })
   );
 
-  if (listing.location) data.append("location", listing.location);
+  if (listing.location) {
+    data.append("location", listing.location);
+  }
 
   return apiClient.post(endpoint, data, {
     onUploadProgress: (progress) =>

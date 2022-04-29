@@ -10,7 +10,6 @@ import ActivityIndicator from "../components/ActivityIndicator";
 
 import listingsApi from "../api/listings";
 import useApi from "../hooks/useApi";
-import OfflineNotification from "../components/OfflineNotification";
 import DataMissing from "../components/DataMissing";
 
 const ListingsScreen = ({ navigation }) => {
@@ -22,33 +21,33 @@ const ListingsScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <Screen style={styles.screen}>
-      <OfflineNotification />
-      {getListingsApi.error && <DataMissing />}
-
+    <>
       {<ActivityIndicator visible={getListingsApi.loading} /> && !refreshing}
+      <Screen style={styles.screen}>
+        {getListingsApi.error && <DataMissing />}
 
-      <FlatList
-        style={styles.flatlist}
-        data={getListingsApi.data}
-        renderItem={({ item }) => (
-          <Card
-            title={item.title}
-            price={`${item.price} $`}
-            imageUrl={item.images[0].url}
-            thumbnailUri={item.images[0].thumbnailUrl}
-            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-          />
-        )}
-        keyExtractor={(listing) => listing.id.toString()}
-        refreshing={refreshing}
-        onRefresh={() => {
-          setRefreshing(true);
-          getListingsApi.request();
-          setRefreshing(false);
-        }}
-      />
-    </Screen>
+        <FlatList
+          style={styles.flatlist}
+          data={getListingsApi.data}
+          renderItem={({ item }) => (
+            <Card
+              title={item.title}
+              price={`${item.price} $`}
+              imageUrl={item.images[0].url}
+              thumbnailUri={item.images[0].thumbnailUrl}
+              onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
+            />
+          )}
+          keyExtractor={(listing) => listing.id.toString()}
+          refreshing={refreshing}
+          onRefresh={async () => {
+            setRefreshing(true);
+            await getListingsApi.request();
+            setRefreshing(false);
+          }}
+        />
+      </Screen>
+    </>
   );
 };
 

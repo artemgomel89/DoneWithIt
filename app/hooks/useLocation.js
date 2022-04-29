@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as Location from "expo-location";
 
 const useLocation = () => {
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState(null);
 
   const getLocation = async () => {
     const { granted } = await Location.requestForegroundPermissionsAsync();
@@ -15,7 +15,7 @@ const useLocation = () => {
   };
 
   useEffect(() => {
-    getLocation().then((r) => console.log(r));
+    getLocation();
   }, []);
 
   return location;

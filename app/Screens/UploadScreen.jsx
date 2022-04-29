@@ -18,7 +18,7 @@ const UploadScreen = ({ progress, modalVisible, setModalVisible }) => {
         ) : (
           <LottieView
             autoPlay
-            source={require("../assets/animation/102943-done.json")}
+            source={require("../assets/animation/33886-check-okey-done.json")}
             loop={false}
             style={styles.animation}
             onAnimationFinish={() => setModalVisible(false)}

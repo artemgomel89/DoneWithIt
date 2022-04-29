@@ -17,11 +17,12 @@ const OfflineNotification = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
+    height: 70,
     width: "100%",
     backgroundColor: colors.primary,
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
+    paddingBottom: 3,
   },
   text: {
     color: colors.white,

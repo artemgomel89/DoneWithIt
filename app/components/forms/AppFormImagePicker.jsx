@@ -25,7 +25,7 @@ const AppFormImagePicker = ({ name }) => {
         onAddImage={handleAdd}
         onRemoveImage={handleRemove}
       />
-      <ErrorMessage error={errors[name]} visible={touched[name]} />
+      <ErrorMessage error={errors[name]} visible={true} />
     </>
   );
 };

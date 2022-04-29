@@ -23,17 +23,15 @@ const isExpired = (item, lifetimeMinutes) => {
 };
 
 const getStoreItem = async (key) => {
-  console.log("GET ITEM!!!");
   try {
     const value = await AsyncStorage.getItem(prefix + key);
     const item = JSON.parse(value);
-    console.log("Executed");
 
     if (!item) return null;
 
     if (isExpired(item, expiryMinutes)) {
       // Command Query Separations (CQS)
-      console.log("isExpired");
+
       await AsyncStorage.removeItem(prefix + key);
       return null;
     }

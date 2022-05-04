@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import AuthContext from "./app/auth/context";
+import AppContext from "./app/auth/context";
 import AuthStorage from "./app/auth/storage";
 
 import AppLoading from "expo-app-loading";
@@ -14,7 +14,9 @@ import { navigationRef } from "./app/navigation/rootNavigation";
 
 function App() {
   const [user, setUser] = useState();
+  const [listings, setListings] = useState([]);
   const [appIsReady, setAppIsReady] = useState(false);
+  const [categoriesToFilter, setCategoriesToFilter] = useState([1]);
 
   const restoreUser = async () => {
     const user = await AuthStorage.getUser();
@@ -22,12 +24,21 @@ function App() {
   };
 
   return appIsReady ? (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AppContext.Provider
+      value={{
+        user,
+        setUser,
+        listings,
+        setListings,
+        categoriesToFilter,
+        setCategoriesToFilter,
+      }}
+    >
       <OfflineNotification />
       <NavigationContainer ref={navigationRef} theme={navigationTheme}>
         {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
-    </AuthContext.Provider>
+    </AppContext.Provider>
   ) : (
     <AppLoading
       startAsync={restoreUser}

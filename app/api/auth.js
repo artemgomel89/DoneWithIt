@@ -1,6 +1,8 @@
 import client from "./client";
+import PATH from "../constants/path";
 
-const login = (email, password) => client.post("/auth", { email, password });
-const register = (userInfo) => client.post("/users", userInfo);
+const loginRequest = (email, password) =>
+  client.post(PATH.AUTH, { email, password });
+const registerRequest = (userInfo) => client.post(PATH.USERS, userInfo);
 
-export default { login, register };
+export default { loginRequest, registerRequest };

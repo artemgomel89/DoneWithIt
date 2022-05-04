@@ -1,10 +1,12 @@
 import { create } from "apisauce";
+
 import cache from "../utility/cache";
 import authStorage from "../auth/storage";
+import PATH from "../constants/path";
 
-const apiClient = create({ baseURL: "http://192.168.0.105:9000/api" });
+const apiClient = create({ baseURL: PATH.BASE_URL });
 
-// Adding x-auth-token to every response
+// Adding x-auth-token to every request
 apiClient.addAsyncRequestTransform(async (request) => {
   const authToken = await authStorage.getToken();
   if (!authToken) return;

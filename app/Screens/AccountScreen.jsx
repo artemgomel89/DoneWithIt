@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import AuthContext from "../auth/context";
 
 import Screen from "../components/Screen";
 import ListItem from "../components/lists/ListItem";
@@ -17,6 +16,7 @@ const menuItems = [
       name: "format-list-bulleted",
       backgroundColor: colors.primary,
     },
+    targetScreen: "MyListings",
   },
   {
     title: "My messages",
@@ -34,11 +34,7 @@ const AccountScreen = ({ navigation }) => {
   return (
     <Screen style={{ backgroundColor: colors.light }}>
       <View style={styles.container}>
-        <ListItem
-          title={user.name}
-          subTitle={user.email}
-          image={require("../assets/jacket.jpg")}
-        />
+        <ListItem title={user.name} subTitle={user.email} />
       </View>
       <View style={styles.container}>
         <FlatList

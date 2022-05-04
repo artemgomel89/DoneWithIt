@@ -1,8 +1,7 @@
 import apiClient from "./client";
+import PATH from "../constants/path";
 
-const endpoint = "/listings";
-
-const getListings = () => apiClient.get(endpoint);
+const getListings = () => apiClient.get(PATH.LISTINGS);
 
 const addListing = (listing, onUploadProgress) => {
   const data = new FormData();
@@ -10,6 +9,7 @@ const addListing = (listing, onUploadProgress) => {
   data.append("price", listing.price);
   data.append("categoryId", listing.category.id);
   data.append("description", listing.description);
+  data.append("userId", listing.userId);
 
   listing.images.forEach((image, index) =>
     data.append("images", {
@@ -23,7 +23,7 @@ const addListing = (listing, onUploadProgress) => {
     data.append("location", listing.location);
   }
 
-  return apiClient.post(endpoint, data, {
+  return apiClient.post(PATH.LISTINGS, data, {
     onUploadProgress: (progress) =>
       onUploadProgress(progress.loaded / progress.total),
   });
@@ -33,7 +33,11 @@ const addListing = (listing, onUploadProgress) => {
   // multipart/form-data
 };
 
+const deleteListing = (listingId) =>
+  apiClient.delete(`${PATH.LISTINGS}/${listingId}`);
+
 export default {
   getListings,
   addListing,
+  deleteListing,
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import * as Yup from "yup";
 import { StyleSheet } from "react-native";
 import colors from "../config/colors";
@@ -11,69 +11,13 @@ import {
   AppFormField,
   SubmitButton,
   AppFormPicker,
-  ErrorMessage,
 } from "../components/forms";
 import CategoryPickerItem from "../components/CategoryPickerItem";
 import AppFormImagePicker from "../components/forms/AppFormImagePicker";
 import useLocation from "../hooks/useLocation";
 import UploadScreen from "./UploadScreen";
-
-const categories = [
-  {
-    backgroundColor: "#fc5c65",
-    icon: "floor-lamp",
-    label: "Furniture",
-    id: 1,
-  },
-  {
-    backgroundColor: "#fd9644",
-    icon: "car",
-    label: "Cars",
-    id: 2,
-  },
-  {
-    backgroundColor: "#fed330",
-    icon: "camera",
-    label: "Cameras",
-    id: 3,
-  },
-  {
-    backgroundColor: "#26de81",
-    icon: "cards",
-    label: "Games",
-    id: 4,
-  },
-  {
-    backgroundColor: "#2bcbba",
-    icon: "shoe-heel",
-    label: "Clothing",
-    id: 5,
-  },
-  {
-    backgroundColor: "#45aaf2",
-    icon: "basketball",
-    label: "Sports",
-    id: 6,
-  },
-  {
-    backgroundColor: "#4b7bec",
-    icon: "headphones",
-    label: "Movies & Music",
-    id: 7,
-  },
-  {
-    backgroundColor: "#a55eea",
-    icon: "book-open-variant",
-    label: "Books",
-    id: 8,
-  },
-  {
-    backgroundColor: "#778ca3",
-    icon: "application",
-    label: "Other",
-    id: 9,
-  },
-];
+import AppContext from "../auth/context";
+import categories from "../store/categories";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).max(25).label("Title"),
@@ -86,6 +30,8 @@ const validationSchema = Yup.object().shape({
 });
 
 const ListingEditScreen = () => {
+  const { user } = useContext(AppContext);
+  const userId = user.userId;
   const location = useLocation();
   const [progress, setProgress] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -95,7 +41,7 @@ const ListingEditScreen = () => {
     setModalVisible(true);
 
     const result = await listingsApi.addListing(
-      { ...listing, location },
+      { ...listing, location, userId },
       (progress) => setProgress(progress)
     );
 

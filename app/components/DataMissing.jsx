@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import AppText from "./AppText/AppText";
 import AppButton from "./AppButton";
 import useApi from "../hooks/useApi";
 import listingsApi from "../api/listings";
 
-const DataMissing = () => {
+const DataMissing = ({ refreshing, setRefreshing }) => {
   const getListingsApi = useApi(listingsApi.getListings);
+
   return (
     <View style={styles.container}>
       <AppText style={styles.text}>Couldn't retrieve the listings</AppText>
       <AppButton
         title="Retry"
-        onPress={getListingsApi.request}
+        onPress={async () => {
+          if (refreshing) return;
+          setRefreshing(true);
+          await getListingsApi.request();
+          setRefreshing(false);
+        }}
         style={styles.button}
       />
     </View>

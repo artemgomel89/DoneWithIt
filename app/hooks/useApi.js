@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const useApi = (apiFunc) => {
-  const [data, setData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -16,13 +15,12 @@ const useApi = (apiFunc) => {
       resp.data
         ? setErrorMessage(resp.data.error)
         : setErrorMessage("Unexpected error occurred");
-    } else {
-      setData(resp.data);
     }
 
     return resp;
   };
-  return { data, error, errorMessage, loading, request };
+
+  return { error, errorMessage, loading, request };
 };
 
 export default useApi;

@@ -5,4 +5,7 @@ export default {
   white: "#fff",
   gray: "gray",
   light: "#f8f4f4",
+  middleLight: "#faf7ff",
+  textWarn: "#572a16",
+  deleteColor: "#b0acac",
 };

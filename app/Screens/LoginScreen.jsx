@@ -2,10 +2,6 @@ import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import * as Yup from "yup";
 
-import auth from "../api/auth";
-import useAuth from "../hooks/useAuth";
-import useApi from "../hooks/useApi";
-
 import Screen from "../components/Screen";
 import {
   AppForm,
@@ -14,6 +10,9 @@ import {
   ErrorMessage,
 } from "../components/forms";
 import ActivityIndicator from "../components/ActivityIndicator";
+import UseApi from "../hooks/useApi";
+import Auth from "../api/auth";
+import useAuth from "../hooks/useAuth";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -21,20 +20,18 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginScreen = () => {
+  const { request, loading, error, errorMessage } = UseApi(Auth.loginRequest);
   const { logIn } = useAuth();
-  const api = useApi(auth.login);
 
   const handleSubmit = async ({ email, password }) => {
-    const resp = await api.request(email, password);
-
+    const resp = await request(email, password);
     if (!resp.ok) return;
-
     logIn(resp.data);
   };
 
   return (
     <>
-      <ActivityIndicator visible={api.loading} />
+      <ActivityIndicator visible={loading} />
       <Screen style={styles.container}>
         <Image
           source={require("../assets/logo-red.png")}
@@ -65,7 +62,7 @@ const LoginScreen = () => {
               textContentType="password"
               secureTextEntry
             />
-            <ErrorMessage error={api.errorMessage} visible={api.error} />
+            <ErrorMessage error={errorMessage} visible={error} />
             <SubmitButton title="Login" />
           </View>
         </AppForm>

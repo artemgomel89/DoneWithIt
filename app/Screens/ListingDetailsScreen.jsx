@@ -80,7 +80,7 @@ const ListingDetailsScreen = ({ route, navigation }) => {
                 }
               >
                 <View style={styles.contactItem}>
-                  <UserIcon />
+                  <UserIcon style={{ marginRight: 7 }} />
                   <View>
                     <AppText style={[styles.text, styles.contactTitle]}>
                       {userData.name}

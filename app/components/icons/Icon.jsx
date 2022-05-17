@@ -8,6 +8,7 @@ const Icon = ({
   size = 35,
   backgroundColor = "black",
   iconColor = "white",
+  style,
 }) => (
   <View
     style={[
@@ -19,6 +20,7 @@ const Icon = ({
         alignItems: "center",
         backgroundColor,
       },
+      style,
     ]}
   >
     <MaterialCommunityIcons name={name} color={iconColor} size={size / 2} />

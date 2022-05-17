@@ -1,6 +1,6 @@
 import client from "./client";
 
-const send = (message, listingId) =>
-  client.post("/messages", { message, listingId });
+const send = (message, userId) => client.post("/messages", { message, userId });
 
-export default { send };
+const get = () => client.get(`/messages`);
+export default { send, get };

@@ -2,10 +2,9 @@ import React from "react";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import AccountScreen from "../Screens/AccountScreen";
-import MessagesScreen from "../Screens/MesssagesScreen";
-import MyListings from "../Screens/MyListingsScreen";
-import MyListingsScreen from "../Screens/MyListingsScreen";
+import AccountScreen from "../Screens/Account/AccountScreen";
+import MyListingsScreen from "../Screens/Account/MyListingsScreen";
+import MessagesNavigator from "./MessagesNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +15,7 @@ const AccountNavigator = () => (
       component={AccountScreen}
       options={{ headerShown: false }}
     />
-    <Stack.Screen name="Messages" component={MessagesScreen} />
+    <Stack.Screen name="MessagesNavigator" component={MessagesNavigator} />
     <Stack.Screen name="MyListings" component={MyListingsScreen} />
   </Stack.Navigator>
 );

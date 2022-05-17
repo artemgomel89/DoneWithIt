@@ -7,9 +7,11 @@ import {
   Button,
   FlatList,
 } from "react-native";
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import colors from "../config/colors";
-import defaultStyles from "../config/styles";
+
 import AppText from "./AppText/AppText";
 import Screen from "./Screen";
 import PickerItem from "./PickerItem";
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 15,
     borderRadius: 25,
-    backgroundColor: defaultStyles.colors.light,
+    backgroundColor: colors.light,
     alignItems: "center",
     flexDirection: "row",
     marginVertical: 10,

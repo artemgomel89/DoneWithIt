@@ -1,13 +1,15 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
-import Screen from "../components/Screen";
-import ListItem from "../components/lists/ListItem";
-import Icon from "../components/Icon";
-import ListItemSeparator from "../components/lists/ListItemSeparator";
+import useAuth from "../../hooks/useAuth";
 
-import colors from "../config/colors";
-import useAuth from "../hooks/useAuth";
+import Screen from "../../components/Screen";
+import ListItem from "../../components/lists/ListItem";
+import Icon from "../../components/icons/Icon";
+import ListItemSeparator from "../../components/lists/ListItemSeparator";
+import UserIcon from "../../components/icons/UserIcon";
+
+import colors from "../../config/colors";
 
 const menuItems = [
   {
@@ -34,7 +36,11 @@ const AccountScreen = ({ navigation }) => {
   return (
     <Screen style={{ backgroundColor: colors.light }}>
       <View style={styles.container}>
-        <ListItem title={user.name} subTitle={user.email} />
+        <ListItem
+          title={user.name}
+          subTitle={user.email}
+          IconComponent={<UserIcon />}
+        />
       </View>
       <View style={styles.container}>
         <FlatList

@@ -1,16 +1,18 @@
 import React from "react";
-import { View } from "react-native";
-
-import ListingsScreen from "../Screens/ListingsScreen";
-import ListingEditScreen from "../Screens/ListingEditScreen";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import AccountNavigator from "../navigation/AccountNavigator";
-import colors from "../config/colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const TabNavigator = () => {
-  const Tab = createBottomTabNavigator();
+import ListingEditScreen from "../Screens/ListingEditScreen";
+import NewListingButton from "./NewListingButton";
+import ListingsScreen from "../Screens/ListingsScreen";
+import AccountScreen from "../Screens/Account/AccountScreen";
+import colors from "../config/colors";
+
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import routes from "./routes";
+
+const Tab = createBottomTabNavigator();
+
+const HomeTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -22,10 +24,11 @@ const TabNavigator = () => {
             display: "flex",
           },
         ],
+        headerShown: false,
       }}
     >
       <Tab.Screen
-        name="Feed"
+        name="Listings"
         component={ListingsScreen}
         options={{
           tabBarIcon: ({ size, color }) => (
@@ -34,35 +37,23 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Add"
+        name={routes.LISTING_EDIT}
         component={ListingEditScreen}
-        options={{
-          tabBarIcon: ({ size }) => (
-            <View
-              style={{
-                backgroundColor: colors.primary,
-                width: size * 2,
-                height: size * 2,
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: size,
-              }}
-            >
-              <MaterialCommunityIcons
-                name="plus-circle"
-                size={35}
-                color="white"
-              />
-            </View>
+        options={({ navigation }) => ({
+          tabBarIcon: () => (
+            <NewListingButton
+              size={70}
+              onPress={() => navigation.navigate(routes.LISTING_EDIT)}
+            />
           ),
           tabBarLabel: () => {
             return null;
           },
-        }}
+        })}
       />
       <Tab.Screen
-        name="Account"
-        component={AccountNavigator}
+        name={routes.ACCOUNT}
+        component={AccountScreen}
         options={{
           tabBarIcon: ({ size, color }) => (
             <MaterialCommunityIcons name="account" size={size} color={color} />
@@ -73,4 +64,4 @@ const TabNavigator = () => {
   );
 };
 
-export default TabNavigator;
+export default HomeTabs;

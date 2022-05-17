@@ -1,18 +1,20 @@
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
+
 import * as Yup from "yup";
 
-import Screen from "../components/Screen";
+import UseApi from "../../hooks/useApi";
+import Auth from "../../api/auth";
+import useAuth from "../../hooks/useAuth";
+
+import Screen from "../../components/Screen";
 import {
   AppForm,
   AppFormField,
   SubmitButton,
   ErrorMessage,
-} from "../components/forms";
-import ActivityIndicator from "../components/ActivityIndicator";
-import UseApi from "../hooks/useApi";
-import Auth from "../api/auth";
-import useAuth from "../hooks/useAuth";
+} from "../../components/forms";
+import ActivityIndicator from "../../components/network/ActivityIndicator";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -32,9 +34,13 @@ const LoginScreen = () => {
   return (
     <>
       <ActivityIndicator visible={loading} />
-      <Screen style={styles.container}>
+      <Screen
+        style={styles.container}
+        barBgColor="transparent"
+        translucent={true}
+      >
         <Image
-          source={require("../assets/logo-red.png")}
+          source={require("../../assets/logo-red.png")}
           style={styles.image}
         />
         <AppForm
@@ -42,7 +48,7 @@ const LoginScreen = () => {
           onSubmit={(values) => handleSubmit(values)}
           validationSchema={validationSchema}
         >
-          <View style={{ width: "100%" }}>
+          <View style={styles.fieldsContainer}>
             <AppFormField
               name="email"
               iconName="email"
@@ -61,9 +67,10 @@ const LoginScreen = () => {
               keyboardType="email-address"
               textContentType="password"
               secureTextEntry
+              style={styles.inputStyle}
             />
             <ErrorMessage error={errorMessage} visible={error} />
-            <SubmitButton title="Login" />
+            <SubmitButton title="Log in" style={styles.button} />
           </View>
         </AppForm>
       </Screen>
@@ -76,11 +83,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
   },
+  button: { width: "80%" },
   image: {
     width: 80,
     height: 80,
     marginBottom: 20,
     marginTop: 50,
+  },
+  fieldsContainer: {
+    width: "90%",
   },
 });
 

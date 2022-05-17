@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
+
 import ImageInput from "../ImageInput";
 
 function ImageInputList({ imageUris = [], onRemoveImage, onAddImage }) {
@@ -34,7 +35,7 @@ function ImageInputList({ imageUris = [], onRemoveImage, onAddImage }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
   image: {

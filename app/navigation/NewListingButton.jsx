@@ -1,9 +1,8 @@
 import React from "react";
+import { TouchableOpacity, View } from "react-native";
 
-import { Text, View } from "react-native";
 import colors from "../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native";
 
 const NewListingButton = ({ size, onPress }) => {
   return (

@@ -6,13 +6,14 @@ import {
   StyleSheet,
   SafeAreaView,
 } from "react-native";
+
 import colors from "../config/colors";
 import * as NavigationBar from "expo-navigation-bar";
 
-const Screen = ({ children, style }) => {
+const Screen = ({ children, style, barBgColor, translucent = false }) => {
   const setAndroidBg = async () => {
     if (Platform.OS === "android") {
-      await NavigationBar.setBackgroundColorAsync("white");
+      await NavigationBar.setBackgroundColorAsync(colors.white);
       await NavigationBar.setButtonStyleAsync("dark");
     }
   };
@@ -23,7 +24,11 @@ const Screen = ({ children, style }) => {
 
   return (
     <SafeAreaView style={[styles.screen, style]}>
-      <StatusBar backgroundColor={colors.light} barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={barBgColor}
+        barStyle="dark-content"
+        translucent={translucent}
+      />
       <View style={style}>{children}</View>
     </SafeAreaView>
   );
@@ -32,7 +37,6 @@ const Screen = ({ children, style }) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });
 export default Screen;

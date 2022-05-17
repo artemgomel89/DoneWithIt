@@ -12,22 +12,9 @@ import * as ImagePicker from "expo-image-picker";
 import colors from "../config/colors";
 
 function ImageInput({ imageUri, onChangeImage }) {
-  useEffect(() => {
-    requestPermission();
-  }, []);
-
   const requestPermission = async () => {
     const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!granted) alert("You need to enable permission to access the library.");
-  };
-
-  const handlePress = () => {
-    if (!imageUri) selectImage();
-    else
-      Alert.alert("Delete", "Are you sure you want to delete this image?", [
-        { text: "Yes", onPress: () => onChangeImage(null) },
-        { text: "No" },
-      ]);
   };
 
   const selectImage = async () => {
@@ -41,6 +28,19 @@ function ImageInput({ imageUri, onChangeImage }) {
       console.log("Error reading an image", error);
     }
   };
+
+  const handlePress = () => {
+    if (!imageUri) selectImage();
+    else
+      Alert.alert("Delete", "Are you sure you want to delete this image?", [
+        { text: "Yes", onPress: () => onChangeImage(null) },
+        { text: "No" },
+      ]);
+  };
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>

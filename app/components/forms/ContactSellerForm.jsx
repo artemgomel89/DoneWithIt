@@ -1,22 +1,19 @@
 import React from "react";
+import { StyleSheet, Alert, View } from "react-native";
 
 import messageApi from "../../api/messages";
-import { StyleSheet, Keyboard, Alert, View } from "react-native";
-import * as Notifications from "expo-notifications";
+
 import * as Yup from "yup";
+import * as Notifications from "expo-notifications";
+
 import AppForm from "./AppForm";
 import { AppFormField, SubmitButton } from "./index";
 
 const ContactSellerForm = ({ listing, userId }) => {
   const handleSubmit = async ({ message }, { resetForm }) => {
-    Keyboard.dismiss();
+    const result = await messageApi.send(message, listing.userId);
+    if (!result.ok) return Alert.alert("Couldn't send the message");
 
-    const result = await messageApi.send(message, listing.id);
-
-    if (!result.ok) {
-      console.log("Error123213431", result);
-      return Alert.alert("Error", "Couldn't send message to the user");
-    }
     resetForm();
 
     await Notifications.scheduleNotificationAsync({
@@ -43,8 +40,9 @@ const ContactSellerForm = ({ listing, userId }) => {
           name="message"
           numberOfLines={3}
           placeholder="Message..."
+          style={styles.input}
         />
-        <SubmitButton title="Contact Seller" />
+        <SubmitButton title="Contact Seller" style={styles.button} />
       </AppForm>
     </View>
   ) : null;
@@ -56,9 +54,19 @@ const validationSchema = Yup.object().shape({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 30,
-    width: "80%",
+    width: "70%",
     alignSelf: "center",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  button: {
+    width: "100%",
+    paddingHorizontal: 45,
+  },
+  input: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    width: "100%",
   },
 });
 

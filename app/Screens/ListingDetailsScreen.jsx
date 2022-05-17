@@ -1,26 +1,28 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Dimensions } from "react-native";
 import {
-  Platform,
+  Dimensions,
   StyleSheet,
   View,
-  KeyboardAvoidingView,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 
-import { Image } from "react-native-expo-image-cache";
-
-import colors from "../config/colors";
-import Screen from "../components/Screen";
-import AppText from "../components/AppText/AppText";
-import ContactSellerForm from "../components/forms/ContactSellerForm";
+import AppContext from "../auth/context";
 import getUserData from "../api/user";
 import useApi from "../hooks/useApi";
-import ActivityIndicator from "../components/ActivityIndicator";
-import AppContext from "../auth/context";
-import CloseIcon from "../components/CloseIcon";
+
+import AppText from "../components/AppText/AppText";
+import ContactSellerForm from "../components/forms/ContactSellerForm";
+import ActivityIndicator from "../components/network/ActivityIndicator";
+import CloseIcon from "../components/icons/BackIcon";
+import Map from "../components/Map";
+import UserIcon from "../components/icons/UserIcon";
+
+import { Image } from "react-native-expo-image-cache";
+import colors from "../config/colors";
 
 const ListingDetailsScreen = ({ route, navigation }) => {
+  const listing = route.params;
   const { user } = useContext(AppContext);
   const [userData, setUserData] = useState({ name: "Michael", email: "krrom" });
   const { loading, request } = useApi(getUserData);
@@ -31,87 +33,118 @@ const ListingDetailsScreen = ({ route, navigation }) => {
     setUserData(resp.data);
   };
 
+  const navigateToAccount = (userId, listingUserID, path) => {
+    if (userId !== listingUserID) return;
+    navigation.navigate(path);
+  };
+
   useEffect(() => {
     getData();
   }, []);
 
-  const listing = route.params;
   return (
-    <Screen style={styles.screen}>
-      {<ActivityIndicator visible={loading} />}
-      <CloseIcon onPress={() => navigation.goBack()} />
-      <KeyboardAvoidingView
-        behavior="position"
-        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 350}
-      >
-        <View style={{ width: "100%" }}>
-          <ScrollView horizontal pagingEnabled>
-            {listing.images.map((image) => {
-              return (
-                <Image
-                  uri={image.url}
-                  preview={{ uri: image.thumbnailUrl }}
-                  tint="light"
-                  style={[styles.image]}
-                />
-              );
-            })}
-          </ScrollView>
-        </View>
+    <View style={styles.screen}>
+      <CloseIcon onPress={() => navigation.goBack()} color={colors.gray} />
+      <View style={{ width: "100%" }}>
+        <ScrollView horizontal pagingEnabled>
+          {listing.images.map((image) => {
+            return (
+              <Image
+                key={image.url + "id"}
+                uri={image.url}
+                preview={{ uri: image.thumbnailUrl }}
+                tint="light"
+                style={[styles.image]}
+              />
+            );
+          })}
+        </ScrollView>
+      </View>
+      {!loading ? (
         <View style={styles.contentContainer}>
           <View style={styles.detailsContainer}>
             <View style={styles.block}>
               <AppText style={styles.title}>{listing.title}</AppText>
-              <AppText style={styles.text}>{listing.description}</AppText>
+              <AppText style={styles.description}>
+                {listing.description}
+              </AppText>
               <View style={styles.priceBlock}>
                 <AppText>Price:</AppText>
                 <AppText style={styles.price}> {listing.price}$</AppText>
               </View>
             </View>
-            <View style={styles.block}>
-              <AppText style={styles.text}>Name: {userData.name}</AppText>
-              <AppText style={styles.text}>Email: {userData.email}</AppText>
+            <View style={[styles.block, styles.contactBlock]}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigateToAccount(user.userId, listing.userId, "Account")
+                }
+              >
+                <View style={styles.contactItem}>
+                  <UserIcon />
+                  <View>
+                    <AppText style={[styles.text, styles.contactTitle]}>
+                      {userData.name}
+                    </AppText>
+                    <AppText style={[styles.text, styles.contactSubtitle]}>
+                      {userData.listings} Listing(s)
+                    </AppText>
+                  </View>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
+          <Map location={listing.location} />
           <ContactSellerForm listing={listing} userId={user.userId} />
         </View>
-      </KeyboardAvoidingView>
-    </Screen>
+      ) : (
+        <ActivityIndicator visible={true} style={styles.indicator} />
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  text: {
-    marginBottom: 5,
+  screen: {
+    width: "100%",
+    height: "100%",
   },
   image: {
-    backgroundColor: "green",
     width: Dimensions.get("window").width,
     height: 200,
   },
-  contentContainer: {
-    justifyContent: "space-between",
+  indicator: {
+    justifyContent: "center",
+    position: "relative",
     height: "77%",
-    paddingHorizontal: 15,
   },
-  detailsContainer: {
-    paddingVertical: 20,
+  contactTitle: { fontSize: 14 },
+  contactSubtitle: { fontSize: 12, color: colors.gray },
+  contentContainer: {
+    paddingBottom: 0,
+    flexGrow: 1,
+    flexDirection: "column",
+  },
+  description: {
+    marginVertical: 5,
+  },
+  contactItem: {
+    flexDirection: "row",
+    marginBottom: 5,
+    alignItems: "center",
   },
   priceBlock: {
     flexDirection: "row",
     alignItems: "center",
   },
   block: {
-    backgroundColor: colors.middleLight,
-    borderRadius: 10,
     padding: 10,
-    marginBottom: 15,
   },
-  contactsBlock: {},
+  contactBlock: {
+    flexDirection: "row",
+  },
   title: {
-    marginBottom: 10,
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
   },
   price: {
     color: colors.secondary,

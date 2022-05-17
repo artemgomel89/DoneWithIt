@@ -2,14 +2,14 @@ import React from "react";
 
 import LottieView from "lottie-react-native";
 import { StyleSheet, View } from "react-native";
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
-const ActivityIndicator = ({ visible = false }) => {
+const ActivityIndicator = ({ visible = false, style }) => {
   if (!visible) return null;
   return (
-    <View style={styles.overlay}>
+    <View style={[styles.overlay, style]}>
       <LottieView
-        source={require("../assets/animation/loading.json")}
+        source={require("../../assets/animation/loading.json")}
         autoPlay
         loop
         style={styles.loading}
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-end",
     paddingBottom: 50,
-    height: "100%",
     width: "100%",
+    height: "100%",
     backgroundColor: colors.white,
     position: "absolute",
     zIndex: 1,

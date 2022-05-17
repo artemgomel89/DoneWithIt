@@ -20,7 +20,8 @@ const addListing = (listing, onUploadProgress) => {
   );
 
   if (listing.location) {
-    data.append("location", listing.location);
+    console.log(listing.location);
+    data.append("location", JSON.stringify(listing.location));
   }
 
   return apiClient.post(PATH.LISTINGS, data, {

@@ -1,22 +1,23 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+
 import AppContext from "./app/auth/context";
 import AuthStorage from "./app/auth/storage";
 
-import AppLoading from "expo-app-loading";
-
-import navigationTheme from "./app/navigation/NavigationTheme";
-import OfflineNotification from "./app/components/OfflineNotification";
+import OfflineNotification from "./app/components/network/OfflineNotification";
 import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
+import AppLoading from "expo-app-loading";
+
 import { navigationRef } from "./app/navigation/rootNavigation";
+import navigationTheme from "./app/navigation/NavigationTheme";
 
 function App() {
   const [user, setUser] = useState();
   const [listings, setListings] = useState([]);
   const [appIsReady, setAppIsReady] = useState(false);
-  const [categoriesToFilter, setCategoriesToFilter] = useState([1]);
+  const [categoriesToFilter, setCategoriesToFilter] = useState([]);
+  const [messages, setMessages] = useState();
 
   const restoreUser = async () => {
     const user = await AuthStorage.getUser();
@@ -28,6 +29,8 @@ function App() {
       value={{
         user,
         setUser,
+        messages,
+        setMessages,
         listings,
         setListings,
         categoriesToFilter,

@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
-import * as Yup from "yup";
 import { StyleSheet } from "react-native";
-import colors from "../config/colors";
 
+import * as Yup from "yup";
+
+import AppContext from "../auth/context";
 import listingsApi from "../api/listings";
 
 import Screen from "../components/Screen";
@@ -12,11 +13,14 @@ import {
   SubmitButton,
   AppFormPicker,
 } from "../components/forms";
-import CategoryPickerItem from "../components/CategoryPickerItem";
+
+import colors from "../config/colors";
+
+import CategoryPickerItem from "../components/Category/CategoryPickerItem";
 import AppFormImagePicker from "../components/forms/AppFormImagePicker";
 import useLocation from "../hooks/useLocation";
 import UploadScreen from "./UploadScreen";
-import AppContext from "../auth/context";
+
 import categories from "../store/categories";
 
 const validationSchema = Yup.object().shape({
@@ -46,7 +50,6 @@ const ListingEditScreen = () => {
     );
 
     if (!result.ok) {
-      console.log(result);
       return alert("Could not save the listing.");
     }
     resetForm();
@@ -71,10 +74,15 @@ const ListingEditScreen = () => {
         validationSchema={validationSchema}
       >
         <AppFormImagePicker name="images" />
-        <AppFormField maxLength={255} name="title" placeholder="Title" />
+        <AppFormField
+          maxLength={255}
+          name="title"
+          placeholder="Title"
+          width={"75%"}
+        />
         <AppFormField
           name="price"
-          width={120}
+          width={"51%"}
           placeholder="Price" /**/
           keyboardType="numeric"
           maxLength={8}
@@ -104,8 +112,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    paddingTop: 5,
+    paddingTop: 25,
     backgroundColor: colors.white,
+    justifyContent: "center",
   },
 });
 

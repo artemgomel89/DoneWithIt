@@ -1,8 +1,9 @@
 import React from "react";
-
 import { Image, View, StyleSheet, TouchableHighlight } from "react-native";
+
 import AppText from "../AppText/AppText";
 import colors from "../../config/colors";
+
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -10,6 +11,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const ListItem = ({
   title,
   subTitle,
+  time,
   image,
   onPress,
   renderRightActions,
@@ -23,9 +25,16 @@ const ListItem = ({
             {IconComponent}
             {image && <Image source={image} style={styles.image} />}
             <View style={styles.text}>
-              <AppText style={styles.title} numberOfLines={1}>
-                {title}
-              </AppText>
+              <View style={styles.topSection}>
+                <AppText style={styles.title} numberOfLines={1}>
+                  {title}
+                </AppText>
+                {time ? (
+                  <AppText style={styles.time} numberOfLines={1}>
+                    {time}
+                  </AppText>
+                ) : null}
+              </View>
               {subTitle && (
                 <AppText style={styles.subTitle} numberOfLines={2}>
                   {subTitle}
@@ -58,15 +67,28 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     marginLeft: 10,
+    fontSize: 14,
     justifyContent: "center",
+  },
+  topSection: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   title: {
     fontWeight: "700",
     fontSize: 16,
   },
+  time: {
+    color: "gray",
+    fontSize: 13,
+    marginRight: 5,
+  },
   subTitle: {
     color: "gray",
-    fontSize: 16,
+    fontSize: 14,
+    width: "80%",
   },
 });
 

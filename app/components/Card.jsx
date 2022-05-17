@@ -1,16 +1,19 @@
 import React from "react";
-import { TouchableWithoutFeedback, View, StyleSheet } from "react-native";
-import FastImage from "react-native-fast-image";
+import {
+  TouchableWithoutFeedback,
+  View,
+  StyleSheet,
+  Image,
+} from "react-native";
 
 import colors from "../config/colors";
 import AppText from "./AppText/AppText";
-import { Image } from "react-native-expo-image-cache";
 
 const Card = ({ title, price, imageUrl, onPress, style }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={[styles.card, style]}>
-        <Image uri={imageUrl} style={styles.image} />
+        <Image source={{ uri: imageUrl }} style={styles.image} />
         <View style={styles.detailsContainer}>
           <AppText style={styles.title} numberOfLines={1}>
             {title}
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
     backgroundColor: colors.white,
-    marginBottom: 20,
+    marginVertical: 10,
     overflow: "hidden",
   },
   image: {

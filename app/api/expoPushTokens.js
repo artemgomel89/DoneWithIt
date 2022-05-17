@@ -1,4 +1,4 @@
 import client from "./client";
 
-const registerPushToken = (token) => client.post("/expoPushTokens", { token });
-export default registerPushToken;
+const register = (token) => client.post("/expoPushTokens", { token });
+export default { register };

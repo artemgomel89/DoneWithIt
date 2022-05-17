@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
-import AppText from "./AppText/AppText";
-import AppButton from "./AppButton";
-import useApi from "../hooks/useApi";
-import listingsApi from "../api/listings";
+
+import useApi from "../../hooks/useApi";
+import listingsApi from "../../api/listings";
+
+import AppText from "../AppText/AppText";
+import AppButton from "../AppButton";
 
 const DataMissing = ({ refreshing, setRefreshing }) => {
   const getListingsApi = useApi(listingsApi.getListings);

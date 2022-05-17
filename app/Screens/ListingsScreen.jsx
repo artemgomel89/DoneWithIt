@@ -6,14 +6,14 @@ import routes from "../navigation/routes";
 
 import Screen from "../components/Screen";
 import Card from "../components/Card";
-import ActivityIndicator from "../components/ActivityIndicator";
-import DataMissing from "../components/DataMissing";
+import ActivityIndicator from "../components/network/ActivityIndicator";
+import DataMissing from "../components/network/DataMissing";
 
 import listingsApi from "../api/listings";
 import useApi from "../hooks/useApi";
 
 import AuthContext from "../auth/context";
-import CategoryFilter from "../components/CategoryFilter";
+import CategoryFilter from "../components/Category/CategoryFilter";
 
 const ListingsScreen = ({ navigation }) => {
   const { listings, setListings, categoriesToFilter } = useContext(AuthContext);
@@ -40,7 +40,7 @@ const ListingsScreen = ({ navigation }) => {
   return (
     <>
       {<ActivityIndicator visible={getListingsApi.loading} /> && !refreshing}
-      <Screen style={styles.screen}>
+      <Screen style={styles.screen} barBgColor={colors.light}>
         {getListingsApi.error && (
           <DataMissing refreshing={refreshing} setRefreshing={setRefreshing} />
         )}
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.light,
     flex: 1,
-    paddingTop: 5,
     paddingHorizontal: 10,
   },
   flatlist: {

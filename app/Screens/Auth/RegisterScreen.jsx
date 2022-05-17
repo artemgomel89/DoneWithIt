@@ -1,14 +1,16 @@
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
+
 import * as Yup from "yup";
 
-import Screen from "../components/Screen";
-import auth from "../api/auth";
-import { AppForm, AppFormField, SubmitButton } from "../components/forms";
-import ErrorMessage from "../components/forms/ErrorMessage";
-import useAuth from "../hooks/useAuth";
-import ActivityIndicator from "../components/ActivityIndicator";
-import useApi from "../hooks/useApi";
+import auth from "../../api/auth";
+import useAuth from "../../hooks/useAuth";
+import useApi from "../../hooks/useApi";
+
+import Screen from "../../components/Screen";
+import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
+import ErrorMessage from "../../components/forms/ErrorMessage";
+import ActivityIndicator from "../../components/network/ActivityIndicator";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().max(16).label("Name"),
@@ -18,13 +20,14 @@ const validationSchema = Yup.object().shape({
 
 const RegisterScreen = () => {
   const { logIn } = useAuth();
-  const api = useApi(auth.register);
+  const api = useApi(auth.registerRequest);
 
   const handleSubmit = async (userInfo) => {
     const resp = await api.request(userInfo);
     if (!resp.ok) return;
+    console.log(resp);
 
-    const { data: authToken } = await auth.login(
+    const { data: authToken } = await auth.loginRequest(
       userInfo.email,
       userInfo.password
     );
@@ -34,9 +37,13 @@ const RegisterScreen = () => {
   return (
     <>
       <ActivityIndicator visible={api.loading} />
-      <Screen style={styles.container}>
+      <Screen
+        style={styles.container}
+        barBgColor="transparent"
+        translucent={true}
+      >
         <Image
-          source={require("../assets/logo-red.png")}
+          source={require("../../assets/logo-red.png")}
           style={styles.image}
         />
         <AppForm
@@ -44,7 +51,7 @@ const RegisterScreen = () => {
           onSubmit={(values) => handleSubmit(values)}
           validationSchema={validationSchema}
         >
-          <View>
+          <View style={styles.fieldsContainer}>
             <AppFormField
               name="name"
               iconName="account"
@@ -83,13 +90,16 @@ const RegisterScreen = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    padding: 10,
+    padding: 20,
   },
   image: {
     width: 80,
     height: 80,
     marginBottom: 20,
     marginTop: 50,
+  },
+  fieldsContainer: {
+    width: "90%",
   },
 });
 

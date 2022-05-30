@@ -1,25 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 
-import AppContext from "../auth/context";
-import getUserData from "../api/user";
-import useApi from "../hooks/useApi";
+import AppContext from "../../auth/context";
+import getUserData from "../../api/user";
+import useApi from "../../hooks/useApi";
 
-import AppText from "../components/AppText/AppText";
-import ContactSellerForm from "../components/forms/ContactSellerForm";
-import ActivityIndicator from "../components/network/ActivityIndicator";
-import CloseIcon from "../components/icons/BackIcon";
-import Map from "../components/Map";
-import UserIcon from "../components/icons/UserIcon";
+import AppText from "../../components/AppText/AppText";
+import ContactSellerForm from "../../components/forms/ContactSellerForm";
+import ActivityIndicator from "../../components/network/ActivityIndicator";
+import CloseIcon from "../../components/icons/BackIcon";
+import Map from "../../components/Map";
+import UserIcon from "../../components/icons/UserIcon";
 
 import { Image } from "react-native-expo-image-cache";
-import colors from "../config/colors";
+import colors from "../../config/colors";
+import { styles } from "./style";
 
 const ListingDetailsScreen = ({ route, navigation }) => {
   const listing = route.params;
@@ -102,54 +97,5 @@ const ListingDetailsScreen = ({ route, navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    width: "100%",
-    height: "100%",
-  },
-  image: {
-    width: Dimensions.get("window").width,
-    height: 200,
-  },
-  indicator: {
-    justifyContent: "center",
-    position: "relative",
-    height: "77%",
-  },
-  contactTitle: { fontSize: 14 },
-  contactSubtitle: { fontSize: 12, color: colors.gray },
-  contentContainer: {
-    paddingBottom: 0,
-    flexGrow: 1,
-    flexDirection: "column",
-  },
-  description: {
-    marginVertical: 5,
-  },
-  contactItem: {
-    flexDirection: "row",
-    marginBottom: 5,
-    alignItems: "center",
-  },
-  priceBlock: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  block: {
-    padding: 10,
-  },
-  contactBlock: {
-    flexDirection: "row",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 18,
-  },
-  price: {
-    color: colors.secondary,
-    fontWeight: "bold",
-  },
-});
 
 export default ListingDetailsScreen;

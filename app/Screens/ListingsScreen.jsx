@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 
 import colors from "../config/colors";
@@ -21,14 +21,20 @@ const ListingsScreen = ({ navigation }) => {
   const getListingsApi = useApi(listingsApi.getListings);
   const [refreshing, setRefreshing] = useState(false);
 
-  const filterListings = (categoriesArr) => {
-    if (!listings) return null;
-    if (categoriesArr.length === 0) return listings;
-    return listings.filter((item) => categoriesArr.includes(item.categoryId));
-  };
+  const filteredListings = useCallback(
+    (categoriesToFilter) => {
+      if (!listings) return null;
+      if (categoriesToFilter.length === 0) return listings;
+      return listings.filter((item) =>
+        categoriesToFilter.includes(item.categoryId)
+      );
+    },
+    [listings]
+  );
 
   const getListings = async () => {
     const resp = await getListingsApi.request();
+    console.log("OOOO!");
     if (!resp.ok) return;
     setListings(resp.data.reverse());
   };
@@ -36,6 +42,8 @@ const ListingsScreen = ({ navigation }) => {
   useEffect(() => {
     getListings();
   }, []);
+
+  useEffect(() => {});
 
   return (
     <>
@@ -49,7 +57,7 @@ const ListingsScreen = ({ navigation }) => {
 
         <FlatList
           style={styles.flatlist}
-          data={filterListings(categoriesToFilter)}
+          data={filteredListings(categoriesToFilter)}
           renderItem={({ item }) => (
             <Card
               title={item.title}

@@ -46,7 +46,6 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-system-navigation-bar": "^1.0.4",
-    "react-native-web": "0.17.1",
     "yup": "^0.32.11"
   },
   "resolutions": {
@@ -54,6 +53,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "eslint": "^8.16.0",
+    "eslint-plugin-react": "^7.30.0",
     "prettier": "2.6.0"
   },
   "private": true

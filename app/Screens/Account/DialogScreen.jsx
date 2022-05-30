@@ -4,8 +4,9 @@ import { View, StyleSheet } from "react-native";
 
 import { GiftedChat, Send } from "react-native-gifted-chat";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import apiMessages from "../../api/messages";
+
 import AppContext from "../../auth/context";
+import apiMessages from "../../api/messages";
 
 const DialogScreen = ({ route }) => {
   const { user } = useContext(AppContext);

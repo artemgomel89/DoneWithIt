@@ -1,5 +1,5 @@
 const PATH = {
-  BASE_URL: "http://192.168.88.77:9000/api",
+  BASE_URL: "http://192.168.29.77:9000/api",
   USERS: "/users",
   LISTINGS: "/listings",
   AUTH: "/auth",

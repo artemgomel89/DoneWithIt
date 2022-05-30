@@ -2,11 +2,13 @@ import React from "react";
 import navigation from "../navigation/rootNavigation";
 
 import useNotifications from "../hooks/useNotifications";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeTabs from "./HomeTabs";
-import ListingDetailsScreen from "../Screens/ListingDetailsScreen";
-import MyListingsScreen from "../Screens/Account/MyListingsScreen";
 import MessagesNavigator from "./MessagesNavigator";
+
+import HomeTabs from "./HomeTabs";
+import ListingDetailsScreen from "../Screens/ListingDetailsScreen/ListingDetailsScreen";
+import MyListingsScreen from "../Screens/Account/MyListingsScreen";
 
 const AppNavigator = () => {
   useNotifications(() => nav("Messages"));

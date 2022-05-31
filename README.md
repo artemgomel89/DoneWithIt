@@ -27,7 +27,7 @@
 <img src="./doneWithIt.png" alt="Application preview"/>
 
 <p align="center">
-    Done With It offers free user to user classifieds listings. <strong>Buy</strong> and <strong>Sell</strong>!
+    Done With It offers free user to user classifieds listings.
 </p>
 <p align="center">
     At this moment you can use the application only through the 
@@ -44,7 +44,7 @@
 
 * `Ability to add listings, connected to your account with geo-positioning` - expo location.
 
-* `11 Screens` - Welcome, Register, Login, Account, Upload, View Image, Messages, Dialog, Listings, Listing Edit, and Listing Details Screens.
+* `11 Screens` - Welcome, Register, Login, Listings, Listing Details Screen, Add new Listing, Upload Listing, Account, Messages, Dialog, My Listings, 
 
 * `Animation` - Using Lottie (Activity Indicator, done animation and more).
 

@@ -1,24 +1,20 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useState } from "react";
 
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import AppText from "../AppText/AppText";
 
 import colors from "../../config/colors";
-import AppContext from "../../auth/context";
+import { useAppDispatch } from "../../hooks/redux";
+import { setCategoriesToFilter } from "../../store/reducers/categoryFilterSlice";
 
 const CategoryFilterItem = ({ id, label }) => {
   const [active, setActive] = useState(false);
-  const { categoriesToFilter, setCategoriesToFilter } = useContext(AppContext);
+  const dispatch = useAppDispatch();
 
-  const toggleFilter = useCallback(() => {
-    if (active) {
-      setCategoriesToFilter(categoriesToFilter.filter((item) => item !== id));
-      setActive(false);
-    } else {
-      setActive(true);
-      setCategoriesToFilter([...categoriesToFilter, id]);
-    }
-  }, [active]);
+  const toggleFilter = () => {
+    dispatch(setCategoriesToFilter({ id, active }));
+    setActive(!active);
+  };
 
   return (
     <View style={[styles.container, active ? styles.active : null]}>

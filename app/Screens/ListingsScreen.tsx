@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 
 import colors from "../config/colors";
@@ -9,51 +9,44 @@ import Card from "../components/Card";
 import ActivityIndicator from "../components/network/ActivityIndicator";
 import DataMissing from "../components/network/DataMissing";
 
-import listingsApi from "../api/listings";
-import useApi from "../hooks/useApi";
-
-import AuthContext from "../auth/context";
 import CategoryFilter from "../components/Category/CategoryFilter";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+
+import { RootState } from "../store";
+import { fetchListings } from "../store/ActionCreators";
 
 const ListingsScreen = ({ navigation }) => {
-  const { listings, setListings, categoriesToFilter } = useContext(AuthContext);
-
-  const getListingsApi = useApi(listingsApi.getListings);
   const [refreshing, setRefreshing] = useState(false);
 
-  const filteredListings = useCallback(
-    (categoriesToFilter) => {
-      if (!listings) return null;
-      if (categoriesToFilter.length === 0) return listings;
-      return listings.filter((item) =>
-        categoriesToFilter.includes(item.categoryId)
-      );
-    },
-    [listings]
+  const dispatch = useAppDispatch();
+  const listings = useAppSelector((state) => state.listings);
+  console.log("11123efervkmrlvmrlvmfdv", listings.data);
+
+  const categoriesToFilter = useAppSelector(
+    (state: RootState) => state.categoriesToFilter.categoriesToFilter
   );
 
-  const getListings = async () => {
-    const resp = await getListingsApi.request();
-    console.log("OOOO!");
-    if (!resp.ok) return;
-    setListings(resp.data.reverse());
+  const filteredListings = (categoriesToFilter) => {
+    if (!listings.data) return null;
+    if (categoriesToFilter.length === 0) return listings.data;
+    return listings.data.filter((item) =>
+      categoriesToFilter.includes(item.categoryId)
+    );
   };
 
   useEffect(() => {
-    getListings();
+    dispatch(fetchListings());
   }, []);
-
-  useEffect(() => {});
 
   return (
     <>
-      {<ActivityIndicator visible={getListingsApi.loading} /> && !refreshing}
+      {<ActivityIndicator visible={listings.isLoading} /> && !refreshing}
       <Screen style={styles.screen} barBgColor={colors.light}>
-        {getListingsApi.error && (
+        {!!listings.error && (
           <DataMissing refreshing={refreshing} setRefreshing={setRefreshing} />
         )}
 
-        {listings.length > 0 ? <CategoryFilter /> : null}
+        {listings.data.length > 0 ? <CategoryFilter /> : null}
 
         <FlatList
           style={styles.flatlist}
@@ -71,10 +64,10 @@ const ListingsScreen = ({ navigation }) => {
           )}
           keyExtractor={(listing) => listing.id.toString()}
           refreshing={refreshing}
-          onRefresh={async () => {
+          onRefresh={() => {
             if (refreshing) return;
             setRefreshing(true);
-            await getListings();
+            dispatch(fetchListings());
             setRefreshing(false);
           }}
         />

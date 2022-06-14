@@ -12,11 +12,13 @@ import AppLoading from "expo-app-loading";
 import { navigationRef } from "./app/navigation/rootNavigation";
 import navigationTheme from "./app/navigation/NavigationTheme";
 
+import { Provider } from "react-redux";
+import { store } from "./app/store";
+
 function App() {
   const [user, setUser] = useState();
   const [listings, setListings] = useState([]);
   const [appIsReady, setAppIsReady] = useState(false);
-  const [categoriesToFilter, setCategoriesToFilter] = useState([]);
   const [messages, setMessages] = useState();
 
   const restoreUser = async () => {
@@ -25,23 +27,23 @@ function App() {
   };
 
   return appIsReady ? (
-    <AppContext.Provider
-      value={{
-        user,
-        setUser,
-        messages,
-        setMessages,
-        listings,
-        setListings,
-        categoriesToFilter,
-        setCategoriesToFilter,
-      }}
-    >
-      <OfflineNotification />
-      <NavigationContainer ref={navigationRef} theme={navigationTheme}>
-        {user ? <AppNavigator /> : <AuthNavigator />}
-      </NavigationContainer>
-    </AppContext.Provider>
+    <Provider store={store}>
+      <AppContext.Provider
+        value={{
+          user,
+          setUser,
+          messages,
+          setMessages,
+          listings,
+          setListings,
+        }}
+      >
+        <OfflineNotification />
+        <NavigationContainer ref={navigationRef} theme={navigationTheme}>
+          {user ? <AppNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </AppContext.Provider>
+    </Provider>
   ) : (
     <AppLoading
       startAsync={restoreUser}

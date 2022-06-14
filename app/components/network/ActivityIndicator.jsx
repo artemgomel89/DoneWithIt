@@ -4,10 +4,10 @@ import LottieView from "lottie-react-native";
 import { StyleSheet, View } from "react-native";
 import colors from "../../config/colors";
 
-const ActivityIndicator = ({ visible = false, style }) => {
+const ActivityIndicator = ({ visible = false }) => {
   if (!visible) return null;
   return (
-    <View style={[styles.overlay, style]}>
+    <View style={[styles.overlay]}>
       <LottieView
         source={require("../../assets/animation/loading.json")}
         autoPlay
